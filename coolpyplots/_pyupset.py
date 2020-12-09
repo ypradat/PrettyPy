@@ -428,7 +428,6 @@ class UpSetPlot():
             wspace       = self.wspace,
             hspace       = self.hspace
         )
-        print("top_nrows: %d, top_ncols: %d" % (top_nrows, top_ncols))
 
         setsize_w   , setsize_h   = self.width_setsize , self.rows
         tablesize_w , tablesize_h = self.width_names   , self.rows
@@ -443,7 +442,6 @@ class UpSetPlot():
         else:
             ax_setsize    = plt.subplot(gs_top[-setsize_h:-1, 0:setsize_w])
             ax_tablenames = plt.subplot(gs_top[-tablesize_h:-1, setsize_w:(setsize_w+tablesize_w)])
-            print("intmatrix_h: %d, intmatrix_w: %d" % (self.rows, self.cols))
             ax_intmatrix  = plt.subplot(gs_top[-intmatrix_h:-1, (setsize_w+tablesize_w):-1])
             ax_intbars    = plt.subplot(gs_top[:intbars_h, (setsize_w+tablesize_w):-1])
 
