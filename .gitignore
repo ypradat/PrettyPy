@@ -1,0 +1,35 @@
+# Tags
+*tags
+
+# Logs 
+log/
+*.log
+
+# Mac specific
+.DS_Store
+.DS_Store?
+
+# Python
+__pycache__/
+*.pyc
+*.ycm_extra_conf.py
+
+# Python test
+*.pytest_cache
+*.coverage
+*.coveragerc
+*.egg-info/
+
+# Open cached files 
+*.m~
+*.*swp
+*.*swo
+
+# Compiled sources
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+.Rproj.user
