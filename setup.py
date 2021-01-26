@@ -13,7 +13,7 @@ class CleanCommand(Command):
 
 setup(
     name = "coolpyplots",
-    version = "0.0.1",
+    version = "0.99",
     author = "Yoann Pradat",
     author_email = "yoann.pradat@centralesupelec.fr",
     install_requires = [

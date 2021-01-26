@@ -19,15 +19,32 @@ import matplotlib.pyplot   as    plt
 from   matplotlib         import gridspec
 import numpy               as    np
 import pandas              as    pd
+from   typing             import Tuple
 
+#color_bars = "#F5AA32"
+#color_high = "#C71E1E"
 
 class DrawPyUpsetPlot(object):
-    def __init__(self, field_set: str, df: pd.core.frame.DataFrame, color_bar: list=[245/255, 170/255, 50/255, 1],
-                 color_que: list=[199/255, 30/255, 30/255, 1]):
+    def __init__(self, field_set: str, df: pd.core.frame.DataFrame, color_bar: Tuple[list, np.ndarray, str]="#F5AA32",
+                 color_que: Tuple[list, np.ndarray, str]="#C71E1E"):
         self.field_set = field_set
         self.df = df
-        self.color_bar = color_bar
-        self.color_que = color_que
+        self.color_bar = self._check_convert_color(color_bar)
+        self.color_que = self._check_convert_color(color_que)
+
+    def _check_convert_color(self, color):
+        if isinstance(color, list) or isinstance(color, np.ndarray):
+            for i in range(3):
+                if color[i] > 1:
+                    color[i] = color[i]/255
+            return color
+        else:
+            if not color.startswith("#"):
+                raise Exception("A string color should start with a # symbol")
+            else:
+                color = color.lstrip("#")
+                color = list(int(color[i:i+2], 16) for i in (0, 2, 4))
+                return self._check_convert_color(color)
 
     def _get_hue_name(self, hue_row: pd.core.series.Series, dt_names: dict):
         hue_ll = []
