@@ -9,7 +9,7 @@
     9 rue Juliot Curie, Gif-Sur-Yvette, 91190 France
 
 
-Builds cooccurence matrices.
+Defines internal classes user-level functions for building and plotting double heatmaps.
 """
 
 import copy
