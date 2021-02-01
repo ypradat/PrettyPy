@@ -69,5 +69,5 @@ def test_plot_double_heatmap():
                                     df_ratio=dfs["ratio"],
                                     df_test=dfs["test"],
                                     config=config)
-    plt.savefig("./img/test_double_heatmap.png")
+    plt.savefig("./img/test_double_heatmap.png", dpi=300)
     plt.close()

@@ -28,5 +28,5 @@ def test_plot_pyupset():
                           query=[tuple(data_dict.keys())],
                           width_setsize=3, width_names=3, names_fontsize=8, circle_size=50, figsize=(8,6))
 
-    plt.savefig("./img/test_pyupset_all.png")
+    plt.savefig("./img/test_pyupset_all.png", dpi=300)
     plt.close()

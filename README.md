@@ -4,7 +4,18 @@
 PrettyPy is a `Python` package that implements nice functions for plotting complex and/or pretty graphics for
 visualizing data or displaying analysis results.
 
-## 2 Heatmap plots
+## 1. Upset plots
+
+The `upset` subpackage of the prettypy package defines a function for plotting upset plots. It mirrors the style of the
+R package `UpSetR` available at [https://github.com/hms-dbmi/UpSetR](https://github.com/hms-dbmi/UpSetR). The current
+implementation was copied from [https://github.com/ImSoErgodic/py-upset](https://github.com/ImSoErgodic/py-upset) and is
+kind of much slower than the `UpSetR` implementation.
+
+Here is an example of rendering on a simulated example.
+
+![pcawg](img/test_pyupset_all.png)
+
+## 2. Heatmap plots
 
 ### 2.1 Double heatmap
 

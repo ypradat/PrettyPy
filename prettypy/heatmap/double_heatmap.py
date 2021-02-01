@@ -259,25 +259,25 @@ class DoubleHeatmapConfig:
     })
     heatmap: Dict[str, Union[int, str, bool, float]] = default_field({
         "orientation"          : "antidiagonal",
-        "xticks_labels"        : True,
-        "yticks_labels"        : True,
+        "xticklabels"          : True,
+        "yticklabels"          : True,
         "ticks_labelsize"      : 8,
         "xticks_labelrotation" : 90,
         "yticks_labelrotation" : 0,
-        "heatmap_linecolor"    : "white",
-        "heatmap_linewidths"   : 0.5,
-        "heatmap_square"       : True,
+        "linecolor"            : "white",
+        "linewidths"           : 0.5,
+        "square"               : True,
     })
     legend: Dict[str, Union[int, float, str]] = default_field({
         'edgecolor': 'k',
         'fancybox': False,
         'facecolor': 'w',
-        'fontsize': 15,
+        'fontsize': 10,
         'framealpha': 1,
         'frameon': False,
-        'handlelength': 1,
-        'handleheight': 1.125,
-        'title_fontsize': 20,
+        'handle_length': 1,
+        'handle_height': 1.125,
+        'title_fontsize': 12,
     })
     count: Dict[str, Union[int, float, str, bool]] = default_field({
         'boundaries'          : [1,5,10,15,20,50,200,500],
@@ -644,12 +644,12 @@ class _DoubleHeatmapPlot(object):
         for config, df in zip([self.config.ratio, self.config.count], dfs):
             sns.heatmap(
                 df,
-                linecolor   = self.config.heatmap["heatmap_linecolor"],
-                linewidths  = self.config.heatmap["heatmap_linewidths"],
+                linecolor   = self.config.heatmap["linecolor"],
+                linewidths  = self.config.heatmap["linewidths"],
                 cmap        = config["cmap"],
-                square      = self.config.heatmap["heatmap_square"],
-                xticklabels = self.config.heatmap["xticks_labels"],
-                yticklabels = self.config.heatmap["yticks_labels"],
+                square      = self.config.heatmap["square"],
+                xticklabels = self.config.heatmap["xticklabels"],
+                yticklabels = self.config.heatmap["yticklabels"],
                 ax          = ax,
                 norm        = cm.colors.BoundaryNorm(boundaries=config["boundaries"], ncolors = 256),
                 cbar_ax     = None,
