@@ -11,7 +11,7 @@ variables:
   CODECOV_TOKEN: "3a640655-0921-4aaa-9f17-87870da992b9"
 
 before_script:
-  - pip install -r requirements.txt
+  - pip install .
 
 test: 
   stage: test
