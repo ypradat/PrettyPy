@@ -1,0 +1,20 @@
+image: "python:3.8"
+
+stages:
+  - test
+
+variables:
+  CODECOV_TOKEN: "3a640655-0921-4aaa-9f17-87870da992b9"
+
+before_script:
+  - Rscript -e 'renv::restore()'
+  - apt-get install -y python-dev python-pip
+  - pip install -r requirements.txt
+
+test: 
+  stage: test
+  script:
+    - make test
+  only:
+    refs:
+      - master

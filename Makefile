@@ -19,6 +19,9 @@ install:
 develop: ctags
 	$(PYTHON) setup.py develop
 
+requirements:
+	conda env export --from-history --no-builds --ignore-channels > requirements.txt
+
 test:
 	$(PYTEST) --cov-config=.coveragerc --cov-report term-missing --cov prettypy prettypy 
 
