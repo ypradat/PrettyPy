@@ -12,6 +12,7 @@ variables:
 
 before_script:
   - pip install .
+  - pip install pytest pytest-cov
 
 test: 
   stage: test
