@@ -12,8 +12,8 @@ class CleanCommand(Command):
         os.system ('rm -rf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info')
 
 setup(
-    name = "coolpyplots",
-    version = "0.99",
+    name = "prettypy",
+    version = "0.99.9",
     author = "Yoann Pradat",
     author_email = "yoann.pradat@centralesupelec.fr",
     install_requires = [

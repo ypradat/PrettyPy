@@ -11,7 +11,7 @@ CTAGS ?= ctags
 #	$(PYTHON) setup.py install
 
 uninstall: clean
-	$(PIP) uninstall coolpyplots
+	$(PIP) uninstall prettypy
 
 install:
 	$(PIP) install .
@@ -20,14 +20,14 @@ develop: ctags
 	$(PYTHON) setup.py develop
 
 test:
-	$(PYTEST) --cov-config=.coveragerc --cov-report term-missing --cov coolpyplots coolpyplots 
+	$(PYTEST) --cov-config=.coveragerc --cov-report term-missing --cov prettypy prettypy 
 
 ctags:
-	$(CTAGS) --python-kinds=-i --exclude=*/tests/* -R coolpyplots
+	$(CTAGS) --python-kinds=-i --exclude=*/tests/* -R prettypy
 
 clean:
 	rm -f tags
 	$(PYTHON) setup.py clean
-	rm -rf coolpyplots.egg-info
+	rm -rf prettypy.egg-info
 	rm -rf dist
 	rm -rf build

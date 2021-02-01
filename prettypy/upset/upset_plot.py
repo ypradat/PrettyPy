@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@modified: Dec 02 2020
+@modified: Jan 29 2021
 @created: Dec 02 2020
 @author: Yoann Pradat
 @reference: https://github.com/ImSoErgodic/py-upset
@@ -21,18 +21,75 @@ import numpy               as    np
 import pandas              as    pd
 from   typing             import Tuple
 
-#color_bars = "#F5AA32"
-#color_high = "#C71E1E"
+def prepare_data_dict_upset_plot(df, field_for_upset, fields_for_sets, fields2vals_keep=None, fields2vals_drop=None,
+                                 add_key_to_set_names=True) -> dict:
+    """
+    Function for preparing the dict of dataframes expected as input to the function `upset_plot`. This function takes as
+    input a dataframe, the name of the field from which you want to build an upset plot and optional fields to filter
+    rows of the dataframe.
 
-class DrawPyUpsetPlot(object):
-    def __init__(self, field_set: str, df: pd.core.frame.DataFrame, color_bar: Tuple[list, np.ndarray, str]="#F5AA32",
-                 color_que: Tuple[list, np.ndarray, str]="#C71E1E"):
-        self.field_set = field_set
-        self.df = df
-        self.color_bar = self._check_convert_color(color_bar)
-        self.color_que = self._check_convert_color(color_que)
+    Parameters
+    ----------
+    df: dataframe
+        Input dataframe
+    field_for_upset: str
+        Name of the field in df used to build set comparisons
+    fields_for_sets: str
+        Name of the field(s) used to define sets of values of field_for_upset
+    fields2vals_keep: dict, default=None
+        If not None, subset the dataframe by keeping only rows with values in the vals list of each (field, vals) item.
+    fields2vals_drop: dict, default=None
+        If not None, subset the dataframe by dropping rows with values in the vals list of each (field, vals) item.
+    add_key_to_set_names: bool, default=True
+        If True, names of the fields used to create sets will be prepended to values for the set names in the plot.
+    """
+    data_dict = {}
 
-    def _check_convert_color(self, color):
+    # filter rows
+    mask_keep = pd.Series(True, index=df.index)
+    if fields2vals_keep is not None:
+        for (field, vals) in fields2vals_keep.items():
+            if not type(vals)==list:
+                vals = [vals]
+            mask_keep = mask_keep & self.df[field].isin(vals)
+
+    if fields2vals_drop is not None:
+        for (field, vals) in fields2vals_drop.items():
+            if not type(vals)==list:
+                vals = [vals]
+            mask_keep = mask_keep & ~self.df[field].isin(vals)
+
+    df_mask = df.loc[mask_keep]
+
+    # define sets
+    df_sets = df_mask[fields_for_sets].drop_duplicates()
+
+    for i, set_row in df_sets.iterrows():
+        # set mask
+        set_mask = pd.Series(True, index=df_mask.index)
+        for field_for_sets in fields_for_sets:
+            set_mask = set_mask & (df_mask[field_for_sets] == set_row[field_for_sets])
+
+        # set name
+        set_name =  []
+        for field_name, field_val in sorted(set_row.to_dict().items()):
+            if add_key_to_set_names:
+                set_name += [field_name, field_val]
+            else:
+                set_name += [field_val]
+        set_name = "_".join(set_name)
+
+        # append dataframe
+        set_upset_values = df_mask.loc[set_mask, field_for_upset].unique()
+        data_dict[set_name] = pd.DataFrame({field_for_upset: set_upset_values})
+
+    return data_dict
+
+
+def _check_convert_color(color):
+    if color is None:
+        return None
+    else:
         if isinstance(color, list) or isinstance(color, np.ndarray):
             for i in range(3):
                 if color[i] > 1:
@@ -44,109 +101,50 @@ class DrawPyUpsetPlot(object):
             else:
                 color = color.lstrip("#")
                 color = list(int(color[i:i+2], 16) for i in (0, 2, 4))
-                return self._check_convert_color(color)
+                return _check_convert_color(color)
 
-    def _get_hue_name(self, hue_row: pd.core.series.Series, dt_names: dict):
-        hue_ll = []
 
-        for k,v in sorted(hue_row.to_dict().items()):
-            if dt_names is None or k not in dt_names.keys():
-                hue_ll += [k,v]
-            else:
-                if dt_names[k]["key"]:
-                    hue_ll += [k]
-                if v in dt_names[k].keys():
-                    hue_ll += [dt_names[k][v]]
-                else:
-                    hue_ll += [v]
+def _get_all_common_columns(data_dict):
+    """
+    Computes an array of (unique) common columns to the data frames in data_dict
+    :param data_dict: Dictionary of data frames
+    :return: array.
+    """
+    common_columns = []
+    for i, k in enumerate(data_dict.keys()):
+        if i == 0:
+            common_columns = data_dict[k].columns
+        else:
+            common_columns = common_columns.intersection(data_dict[k].columns)
+    if len(common_columns.values) == 0:
+        raise ValueError('Data frames should have homogeneous columns with the same name to use for computing '
+                         'intersections')
+    return common_columns.unique()
 
-        hue_name = "_".join(hue_ll)
-        return hue_name
 
-    def _get_data_dict(self, hue_vars, fields2vals_keep=None, fields2vals_drop=None, dt_names=None) -> dict:
-        dt_data = {}
-
-        mask_keep = pd.Series(True, index=self.df.index)
-        if fields2vals_keep is not None:
-            for (field, vals) in fields2vals_keep.items():
-                if not type(vals)==list:
-                    vals = [vals]
-                mask_keep = mask_keep & self.df[field].isin(vals)
-
-        if fields2vals_drop is not None:
-            for (field, vals) in fields2vals_drop.items():
-                if not type(vals)==list:
-                    vals = [vals]
-                mask_keep = mask_keep & ~self.df[field].isin(vals)
-
-        df_mask = self.df.loc[mask_keep]
-        df_hue_unique = df_mask[hue_vars].drop_duplicates()
-
-        for i, hue_row in df_hue_unique.iterrows():
-
-            hue_mask = pd.Series(True, index=df_mask.index)
-            for hue_var in hue_vars:
-                hue_mask =  hue_mask & (df_mask[hue_var] == hue_row[hue_var])
-
-            hue_name = self._get_hue_name(hue_row, dt_names)
-            dt_data[hue_name] = pd.DataFrame({self.field_set: df_mask.loc[hue_mask, self.field_set].unique()})
-
-        return dt_data
-
-    def draw(self, hue_vars, fields2vals_keep=None, fields2vals_drop=None, dt_names=None, height_ratio=4,
-             width_setsize=1, width_names=2, names_fontsize=8, circle_size=75, figsize: tuple=(16, 9),
-             inters_min=1) -> dict:
-
-        data_dict = self._get_data_dict(hue_vars, fields2vals_keep, fields2vals_drop, dt_names)
-
-        #### draw
-        dt_fig = plot_pyupset(
-            data_dict          = data_dict,
-            figsize            = figsize,
-            unique_keys        = [self.field_set],
-            inters_size_bounds = (inters_min, np.inf),
-            query              = [tuple(data_dict.keys())],
-            colors_query       = [self.color_que],
-            color_vbar         = self.color_bar,
-            color_hbar         = self.color_bar,
-            vbar_rot           = 45,
-            vbar_fmt           = "d",
-            height_ratio       = height_ratio,
-            width_setsize      = width_setsize,
-            width_names        = width_names,
-            names_fontsize     = names_fontsize,
-            wspace             = 0,
-            circle_size        = 75
-        )
-
-        return dt_fig
-
-    def save(self, filename: str):
-        current_wd = setwd_to_results()
-
-def plot_pyupset(data_dict,
-                 figsize,
-                 unique_keys=None,
-                 sort_by='size',
-                 inters_size_bounds=(0, np.inf),
-                 inters_degree_bounds=(1, np.inf),
-                 additional_plots=None,
-                 names_fontsize=14,
-                 query=None,
-                 colors_query=None,
-                 color_vbar=None,
-                 color_hbar=None,
-                 color_matr=None,
-                 vbar_rot=90,
-                 vbar_fmt=".2g",
-                 circle_size=300,
-                 height_ratio=4,
-                 width_setsize=3,
-                 width_names=2,
-                 hspace=0.2,
-                 wspace=0.1,
-                 grid_barplot=False,
-                 invert_barplot=False):
+def upset_plot(data_dict,
+               figsize,
+               unique_keys=None,
+               sort_by='size',
+               inters_size_bounds=(0, np.inf),
+               inters_degree_bounds=(1, np.inf),
+               additional_plots=None,
+               names_fontsize=14,
+               query=None,
+               colors_query=None,
+               color_vbar=None,
+               color_hbar=None,
+               color_matr=None,
+               vbar_rot=90,
+               vbar_fmt=".2g",
+               circle_size=300,
+               height_ratio=4,
+               width_setsize=3,
+               width_names=2,
+               hspace=0.2,
+               wspace=0.1,
+               grid_barplot=False,
+               invert_barplot=False):
     """
     Plots a main set of graph showing intersection size, intersection matrix and the size of base sets. If given,
     additional plots are placed below the main graph.
@@ -218,9 +216,14 @@ def plot_pyupset(data_dict,
     intersections to highligh must be specified with the names used as keys in the data_dict.
 
     """
+    color_vbar = _check_convert_color(color_vbar)
+    color_hbar = _check_convert_color(color_hbar)
+    color_matr = _check_convert_color(color_matr)
+    colors_query = list(map(_check_convert_color, colors_query))
+
     query = [] if query is None else query
     ap = [] if additional_plots is None else additional_plots
-    all_columns = unique_keys if unique_keys is not None else __get_all_common_columns(data_dict)
+    all_columns = unique_keys if unique_keys is not None else _get_all_common_columns(data_dict)
     all_columns = list(all_columns)
 
     plot_data = DataExtractor(data_dict, all_columns)
@@ -271,23 +274,6 @@ def plot_pyupset(data_dict,
     return fig_dict
 
 
-def __get_all_common_columns(data_dict):
-    """
-    Computes an array of (unique) common columns to the data frames in data_dict
-    :param data_dict: Dictionary of data frames
-    :return: array.
-    """
-    common_columns = []
-    for i, k in enumerate(data_dict.keys()):
-        if i == 0:
-            common_columns = data_dict[k].columns
-        else:
-            common_columns = common_columns.intersection(data_dict[k].columns)
-    if len(common_columns.values) == 0:
-        raise ValueError('Data frames should have homogeneous columns with the same name to use for computing '
-                         'intersections')
-    return common_columns.unique()
-
 class UpSetPlot():
     def __init__(self, figsize, rows, cols, additional_plots, names_fontsize, query, colors_query, color_vbar, color_hbar,
                  color_matr, vbar_rot, vbar_fmt, circle_size, height_ratio, width_setsize, width_names, invert_barplot,
@@ -301,13 +287,13 @@ class UpSetPlot():
 
         :param cols: The number of columns of the intersection matrix
 
-        :param additional_plots: list of dictionaries as specified in plot_pyupset()
+        :param additional_plots: list of dictionaries as specified in upset_plot()
 
-        :param names_fontsize: float as specified in plot_pyupset()
+        :param names_fontsize: float as specified in upset_plot()
 
-        :param query: list of tuples as specified in plot_pyupset()
+        :param query: list of tuples as specified in upset_plot()
 
-        :param colors_query: list of colors as specified in plot_pyupset()
+        :param colors_query: list of colors as specified in upset_plot()
 
         :param color_vbar: 4-length array or color name
 
@@ -416,7 +402,7 @@ class UpSetPlot():
         """
         Prepares the figure, axes (and their grid) taking into account the additional plots.
 
-        :param additional_plots: list of dictionaries as specified in plot_pyupset()
+        :param additional_plots: list of dictionaries as specified in upset_plot()
         :return: references to the newly created figure and axes
         """
         fig = plt.figure(figsize=self.figsize)
