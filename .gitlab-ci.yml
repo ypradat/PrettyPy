@@ -18,6 +18,7 @@ test:
   stage: test
   script:
     - make test
+    - bash <(curl -s https://codecov.io/bash)
   only:
     refs:
       - master

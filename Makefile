@@ -23,7 +23,7 @@ requirements:
 	pip freeze > requirements.txt
 
 test:
-	$(PYTEST) --cov-config=.coveragerc --cov-report term-missing --cov prettypy prettypy 
+	$(PYTEST) --cov-config .coveragerc --cov-report xml:cov.xml --cov prettypy prettypy 
 
 ctags:
 	$(CTAGS) --python-kinds=-i --exclude=*/tests/* -R prettypy
