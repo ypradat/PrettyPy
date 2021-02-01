@@ -1,47 +1,30 @@
-appnope @ file:///opt/concourse/worker/volumes/live/5f13e5b3-5355-4541-5fc3-f08850c73cf9/volume/appnope_1606859448618/work
 attrs @ file:///tmp/build/80754af9/attrs_1604765588209/work
-backcall==0.2.0
-certifi==2020.6.20
-coverage @ file:///opt/concourse/worker/volumes/live/2b7c9b3a-4138-4ec1-4fd6-440c2291e9cb/volume/coverage_1605479756589/work
+certifi==2020.12.5
+coverage @ file:///opt/concourse/worker/volumes/live/46b194ef-1cab-45e6-7b69-8136fed82315/volume/coverage_1611690853806/work
 cycler==0.10.0
-decorator==4.4.2
-iniconfig @ file:///tmp/build/80754af9/iniconfig_1602780191262/work
-ipython @ file:///opt/concourse/worker/volumes/live/26969e8f-c9f7-42dc-6ffb-b3effd424c49/volume/ipython_1604101242376/work
-ipython-genutils @ file:///tmp/build/80754af9/ipython_genutils_1606773439826/work
-jedi @ file:///opt/concourse/worker/volumes/live/12a2c347-a8e4-4b62-5b19-dcc92a2254f6/volume/jedi_1606932552286/work
-kiwisolver @ file:///opt/concourse/worker/volumes/live/b8936fa6-0e4b-47e7-4fb4-e02dbd4505ee/volume/kiwisolver_1604014598721/work
-matplotlib @ file:///opt/concourse/worker/volumes/live/f7797860-f8aa-410c-4a56-72315954816b/volume/matplotlib-base_1603378002957/work
-mkl-fft==1.2.0
-mkl-random==1.1.1
-mkl-service==2.3.0
+importlib-metadata @ file:///tmp/build/80754af9/importlib-metadata_1602276842396/work
+iniconfig @ file:///home/linux1/recipes/ci/iniconfig_1610983019677/work
+kiwisolver @ file:///opt/concourse/worker/volumes/live/6dee099b-3849-4b61-575b-0e9f54a3bd23/volume/kiwisolver_1607570822545/work
+matplotlib @ file:///opt/concourse/worker/volumes/live/6db3817d-447c-451b-528a-2d6904862fb7/volume/matplotlib-base_1607974634094/work
 more-itertools @ file:///tmp/build/80754af9/more-itertools_1605111547926/work
-numpy @ file:///opt/concourse/worker/volumes/live/5572694e-967a-4c0c-52cf-b53d43e72de9/volume/numpy_and_numpy_base_1603491881791/work
+numpy @ file:///opt/concourse/worker/volumes/live/317d3633-3972-452c-494a-92900a1134d5/volume/numpy_and_numpy_base_1607448161283/work
 olefile==0.46
-packaging @ file:///tmp/build/80754af9/packaging_1606930849755/work
-pandas @ file:///opt/concourse/worker/volumes/live/f14cf8c4-c564-4eff-4b17-158e90dbf88a/volume/pandas_1602088128240/work
-parso==0.7.0
+packaging @ file:///tmp/build/80754af9/packaging_1611952188834/work
+pandas==1.2.1
 patsy==0.5.1
-pexpect @ file:///tmp/build/80754af9/pexpect_1605563209008/work
-pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
-Pillow @ file:///opt/concourse/worker/volumes/live/991b9a87-3372-4acd-45f9-eaa52701f03c/volume/pillow_1603822262543/work
-pluggy==0.13.1
-# Editable install with no version control (prettypy==0.99)
--e /usr/local/anaconda3/envs/3.8_prettypy/lib/python3.8/site-packages
-prompt-toolkit @ file:///tmp/build/80754af9/prompt-toolkit_1602688806899/work
-ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1605560620615/work/dist/ptyprocess-0.6.0-py2.py3-none-any.whl
-py @ file:///tmp/build/80754af9/py_1593446248552/work
-Pygments @ file:///tmp/build/80754af9/pygments_1607368905949/work
-pyparsing==2.4.7
-pytest==0.0.0
-pytest-cov @ file:///tmp/build/80754af9/pytest-cov_1605474527080/work
-python-dateutil==2.8.1
-pytz @ file:///tmp/build/80754af9/pytz_1606604771399/work
-scipy @ file:///opt/concourse/worker/volumes/live/7f5e51f8-abf3-4409-4c56-a4fb14cc9869/volume/scipy_1593104185999/work
-seaborn @ file:///tmp/build/80754af9/seaborn_1600553570093/work
-six @ file:///opt/concourse/worker/volumes/live/5b31cb27-1e37-4ca5-6e9f-86246eb206d2/volume/six_1605205320872/work
-statsmodels @ file:///opt/concourse/worker/volumes/live/148a0e6d-2163-4103-6ef5-61556693c052/volume/statsmodels_1602280229372/work
+Pillow @ file:///opt/concourse/worker/volumes/live/908c4bb7-c693-4f3a-5005-76a88fd03165/volume/pillow_1609786795096/work
+pluggy==0.12.0
+py @ file:///tmp/build/80754af9/py_1607971587848/work
+pyparsing @ file:///home/linux1/recipes/ci/pyparsing_1610983426697/work
+pytest==6.2.2
+pytest-cov @ file:///tmp/build/80754af9/pytest-cov_1611172139459/work
+python-dateutil @ file:///home/ktietz/src/ci/python-dateutil_1611928101742/work
+pytz @ file:///tmp/build/80754af9/pytz_1608922264688/work
+scipy @ file:///opt/concourse/worker/volumes/live/1a36c32f-2781-4ba5-77b0-65164b818584/volume/scipy_1607617270393/work
+seaborn @ file:///tmp/build/80754af9/seaborn_1608578541026/work
+six @ file:///opt/concourse/worker/volumes/live/34b5b2b5-c9cb-44fb-4b8e-8a9a881bfa35/volume/six_1605205329242/work
+statsmodels @ file:///opt/concourse/worker/volumes/live/da2edaa9-8b94-4f32-40e1-fc4ac6364654/volume/statsmodels_1607709720413/work
 toml @ file:///tmp/build/80754af9/toml_1592853716807/work
-tornado @ file:///opt/concourse/worker/volumes/live/05341796-4198-4ded-4a9a-332fde3cdfd1/volume/tornado_1606942323372/work
-tqdm @ file:///tmp/build/80754af9/tqdm_1602185206534/work
-traitlets @ file:///tmp/build/80754af9/traitlets_1602787416690/work
-wcwidth @ file:///tmp/build/80754af9/wcwidth_1593447189090/work
+tornado @ file:///opt/concourse/worker/volumes/live/2c1a63a2-006b-48ee-56b9-0cfe8b4927f9/volume/tornado_1606942321278/work
+tqdm @ file:///tmp/build/80754af9/tqdm_1611857934208/work
+zipp @ file:///tmp/build/80754af9/zipp_1604001098328/work
