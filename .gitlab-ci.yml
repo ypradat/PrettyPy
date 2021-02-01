@@ -1,5 +1,9 @@
 image: "python:3.8"
 
+default:
+  tags:
+    - docker
+
 stages:
   - test
 
