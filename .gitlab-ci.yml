@@ -7,7 +7,6 @@ variables:
   CODECOV_TOKEN: "3a640655-0921-4aaa-9f17-87870da992b9"
 
 before_script:
-  - apt-get install -y python-dev python-pip
   - pip install -r requirements.txt
 
 test: 
