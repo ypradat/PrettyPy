@@ -21,7 +21,6 @@ develop: ctags
 
 requirements:
 	pip freeze > requirements.txt
-	conda env export --no-builds --ignore-channels > requirements.yml
 
 test:
 	$(PYTEST) --cov-config=.coveragerc --cov-report term-missing --cov prettypy prettypy 
