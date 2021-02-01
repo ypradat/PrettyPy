@@ -1,78 +1,47 @@
-name: 3.8_prettypy
-channels:
-  - defaults
-dependencies:
-  - defaults/osx-64::blas==1.0=mkl
-  - anaconda/osx-64::ca-certificates==2020.10.14=0
-  - defaults/osx-64::intel-openmp==2019.4=233
-  - defaults/osx-64::jpeg==9b=he5867d9_2
-  - defaults/osx-64::libcxx==10.0.0=1
-  - anaconda/osx-64::libgfortran==3.0.1=h93005f0_2
-  - defaults/osx-64::xz==5.2.5=h1de35cc_0
-  - defaults/osx-64::zlib==1.2.11=h1de35cc_3
-  - defaults/osx-64::libffi==3.3=hb1e8313_2
-  - defaults/osx-64::libpng==1.6.37=ha441bb4_0
-  - defaults/osx-64::lz4-c==1.9.2=h79c402e_3
-  - defaults/osx-64::mkl==2019.4=233
-  - defaults/osx-64::ncurses==6.2=h0a44026_1
-  - anaconda/osx-64::openssl==1.1.1h=haf1e3a3_0
-  - defaults/osx-64::tk==8.6.10=hb0a8c7a_0
-  - defaults/osx-64::freetype==2.10.4=ha233b18_0
-  - defaults/osx-64::libedit==3.1.20191231=h1de35cc_1
-  - defaults/osx-64::readline==8.0=h1de35cc_0
-  - defaults/osx-64::zstd==1.4.5=h41d2c2f_0
-  - defaults/osx-64::libtiff==4.1.0=hcb84e12_1
-  - defaults/osx-64::sqlite==3.33.0=hffcf06c_0
-  - defaults/osx-64::lcms2==2.11=h92f6f08_0
-  - defaults/osx-64::python==3.8.2=hf48f09d_13
-  - defaults/osx-64::appnope==0.1.2=py38hecd8cb5_1001
-  - defaults/noarch::attrs==20.3.0=pyhd3eb1b0_0
-  - defaults/noarch::backcall==0.2.0=py_0
-  - anaconda/osx-64::certifi==2020.6.20=py38_0
-  - defaults/osx-64::coverage==5.3=py38h9ed2024_2
-  - defaults/noarch::decorator==4.4.2=py_0
-  - defaults/noarch::iniconfig==1.1.1=py_0
-  - defaults/noarch::ipython_genutils==0.2.0=pyhd3eb1b0_1
-  - defaults/osx-64::kiwisolver==1.3.0=py38h23ab428_0
-  - defaults/noarch::more-itertools==8.6.0=pyhd3eb1b0_0
-  - defaults/noarch::olefile==0.46=py_0
-  - defaults/noarch::parso==0.7.0=py_0
-  - defaults/noarch::pickleshare==0.7.5=pyhd3eb1b0_1003
-  - defaults/osx-64::pluggy==0.13.1=py38_0
-  - defaults/noarch::ptyprocess==0.6.0=pyhd3eb1b0_2
-  - defaults/noarch::py==1.9.0=py_0
-  - defaults/noarch::pyparsing==2.4.7=py_0
-  - defaults/noarch::pytz==2020.4=pyhd3eb1b0_0
-  - defaults/osx-64::six==1.15.0=py38hecd8cb5_0
-  - defaults/noarch::toml==0.10.1=py_0
-  - defaults/osx-64::tornado==6.1=py38h9ed2024_0
-  - anaconda/noarch::tqdm==4.50.2=py_0
-  - defaults/noarch::wcwidth==0.2.5=py_0
-  - defaults/noarch::wheel==0.36.1=pyhd3eb1b0_0
-  - defaults/osx-64::cycler==0.10.0=py38_0
-  - defaults/osx-64::jedi==0.17.2=py38hecd8cb5_1
-  - defaults/osx-64::mkl-service==2.3.0=py38h9ed2024_0
-  - defaults/noarch::packaging==20.7=pyhd3eb1b0_0
-  - defaults/noarch::pexpect==4.8.0=pyhd3eb1b0_3
-  - defaults/osx-64::pillow==8.0.1=py38h5270095_0
-  - defaults/noarch::python-dateutil==2.8.1=py_0
-  - defaults/osx-64::setuptools==51.0.0=py38hecd8cb5_2
-  - defaults/noarch::traitlets==5.0.5=py_0
-  - defaults/osx-64::numpy-base==1.19.2=py38hcfb5961_0
-  - defaults/osx-64::pip==20.3.1=py38hecd8cb5_0
-  - defaults/noarch::pygments==2.7.3=pyhd3eb1b0_0
-  - defaults/osx-64::pytest==6.1.2=py38hecd8cb5_0
-  - defaults/noarch::prompt-toolkit==3.0.8=py_0
-  - defaults/noarch::pytest-cov==2.10.1=pyhd3eb1b0_0
-  - defaults/osx-64::ipython==7.19.0=py38h01d92e1_0
-  - anaconda/osx-64::scipy==1.5.0=py38hbab996c_0
-  - anaconda/osx-64::patsy==0.5.1=py38_0
-  - defaults/osx-64::matplotlib==3.3.2=0
-  - defaults/osx-64::matplotlib-base==3.3.2=py38h181983e_0
-  - defaults/osx-64::mkl_fft==1.2.0=py38hc64f4ea_0
-  - defaults/osx-64::mkl_random==1.1.1=py38h959d312_0
-  - defaults/osx-64::numpy==1.19.2=py38h456fd55_0
-  - defaults/osx-64::pandas==1.1.3=py38hb1e8313_0
-  - anaconda/noarch::seaborn==0.11.0=py_0
-  - anaconda/osx-64::statsmodels==0.12.0=py38haf1e3a3_0
-prefix: /usr/local/anaconda3/envs/3.8_prettypy
+appnope @ file:///opt/concourse/worker/volumes/live/5f13e5b3-5355-4541-5fc3-f08850c73cf9/volume/appnope_1606859448618/work
+attrs @ file:///tmp/build/80754af9/attrs_1604765588209/work
+backcall==0.2.0
+certifi==2020.6.20
+coverage @ file:///opt/concourse/worker/volumes/live/2b7c9b3a-4138-4ec1-4fd6-440c2291e9cb/volume/coverage_1605479756589/work
+cycler==0.10.0
+decorator==4.4.2
+iniconfig @ file:///tmp/build/80754af9/iniconfig_1602780191262/work
+ipython @ file:///opt/concourse/worker/volumes/live/26969e8f-c9f7-42dc-6ffb-b3effd424c49/volume/ipython_1604101242376/work
+ipython-genutils @ file:///tmp/build/80754af9/ipython_genutils_1606773439826/work
+jedi @ file:///opt/concourse/worker/volumes/live/12a2c347-a8e4-4b62-5b19-dcc92a2254f6/volume/jedi_1606932552286/work
+kiwisolver @ file:///opt/concourse/worker/volumes/live/b8936fa6-0e4b-47e7-4fb4-e02dbd4505ee/volume/kiwisolver_1604014598721/work
+matplotlib @ file:///opt/concourse/worker/volumes/live/f7797860-f8aa-410c-4a56-72315954816b/volume/matplotlib-base_1603378002957/work
+mkl-fft==1.2.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+more-itertools @ file:///tmp/build/80754af9/more-itertools_1605111547926/work
+numpy @ file:///opt/concourse/worker/volumes/live/5572694e-967a-4c0c-52cf-b53d43e72de9/volume/numpy_and_numpy_base_1603491881791/work
+olefile==0.46
+packaging @ file:///tmp/build/80754af9/packaging_1606930849755/work
+pandas @ file:///opt/concourse/worker/volumes/live/f14cf8c4-c564-4eff-4b17-158e90dbf88a/volume/pandas_1602088128240/work
+parso==0.7.0
+patsy==0.5.1
+pexpect @ file:///tmp/build/80754af9/pexpect_1605563209008/work
+pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
+Pillow @ file:///opt/concourse/worker/volumes/live/991b9a87-3372-4acd-45f9-eaa52701f03c/volume/pillow_1603822262543/work
+pluggy==0.13.1
+# Editable install with no version control (prettypy==0.99)
+-e /usr/local/anaconda3/envs/3.8_prettypy/lib/python3.8/site-packages
+prompt-toolkit @ file:///tmp/build/80754af9/prompt-toolkit_1602688806899/work
+ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1605560620615/work/dist/ptyprocess-0.6.0-py2.py3-none-any.whl
+py @ file:///tmp/build/80754af9/py_1593446248552/work
+Pygments @ file:///tmp/build/80754af9/pygments_1607368905949/work
+pyparsing==2.4.7
+pytest==0.0.0
+pytest-cov @ file:///tmp/build/80754af9/pytest-cov_1605474527080/work
+python-dateutil==2.8.1
+pytz @ file:///tmp/build/80754af9/pytz_1606604771399/work
+scipy @ file:///opt/concourse/worker/volumes/live/7f5e51f8-abf3-4409-4c56-a4fb14cc9869/volume/scipy_1593104185999/work
+seaborn @ file:///tmp/build/80754af9/seaborn_1600553570093/work
+six @ file:///opt/concourse/worker/volumes/live/5b31cb27-1e37-4ca5-6e9f-86246eb206d2/volume/six_1605205320872/work
+statsmodels @ file:///opt/concourse/worker/volumes/live/148a0e6d-2163-4103-6ef5-61556693c052/volume/statsmodels_1602280229372/work
+toml @ file:///tmp/build/80754af9/toml_1592853716807/work
+tornado @ file:///opt/concourse/worker/volumes/live/05341796-4198-4ded-4a9a-332fde3cdfd1/volume/tornado_1606942323372/work
+tqdm @ file:///tmp/build/80754af9/tqdm_1602185206534/work
+traitlets @ file:///tmp/build/80754af9/traitlets_1602787416690/work
+wcwidth @ file:///tmp/build/80754af9/wcwidth_1593447189090/work
