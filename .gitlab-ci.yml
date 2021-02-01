@@ -22,3 +22,6 @@ test:
   only:
     refs:
       - master
+  except:
+    changes:
+      - prettypy

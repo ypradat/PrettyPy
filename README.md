@@ -1,5 +1,6 @@
 # PrettyPy 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![codecov](https://codecov.io/gh/ypradat/PrettyPy/branch/master/graph/badge.svg?token=J88EWDI69U)](https://codecov.io/gh/ypradat/PrettyPy)
 
 PrettyPy is a `Python` package that implements nice functions for plotting complex and/or pretty graphics for
 visualizing data or displaying analysis results.
