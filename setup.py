@@ -20,6 +20,9 @@ setup(
         "numpy",
         "matplotlib",
         "pandas",
+        "seaborn",
+        "statsmodels",
+        "tqdm",
     ],
     cmdclass={
         'clean': CleanCommand
