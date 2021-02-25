@@ -24,7 +24,7 @@ from   typing             import Tuple
 def prepare_data_dict_upset_plot(df, field_for_upset, fields_for_sets, fields2vals_keep=None, fields2vals_drop=None,
                                  add_key_to_set_names=True) -> dict:
     """
-    Function for preparing the dict of dataframes expected as input to the function `upset_plot`. This function takes as
+    Function for preparing the dict of dataframes expected as input to the function `plot_upset`. This function takes as
     input a dataframe, the name of the field from which you want to build an upset plot and optional fields to filter
     rows of the dataframe.
 
@@ -122,7 +122,7 @@ def _get_all_common_columns(data_dict):
     return common_columns.unique()
 
 
-def upset_plot(data_dict,
+def plot_upset(data_dict,
                figsize,
                unique_keys=None,
                sort_by='size',
@@ -287,13 +287,13 @@ class UpSetPlot():
 
         :param cols: The number of columns of the intersection matrix
 
-        :param additional_plots: list of dictionaries as specified in upset_plot()
+        :param additional_plots: list of dictionaries as specified in plot_upset()
 
-        :param names_fontsize: float as specified in upset_plot()
+        :param names_fontsize: float as specified in plot_upset()
 
-        :param query: list of tuples as specified in upset_plot()
+        :param query: list of tuples as specified in plot_upset()
 
-        :param colors_query: list of colors as specified in upset_plot()
+        :param colors_query: list of colors as specified in plot_upset()
 
         :param color_vbar: 4-length array or color name
 
@@ -402,7 +402,7 @@ class UpSetPlot():
         """
         Prepares the figure, axes (and their grid) taking into account the additional plots.
 
-        :param additional_plots: list of dictionaries as specified in upset_plot()
+        :param additional_plots: list of dictionaries as specified in plot_upset()
         :return: references to the newly created figure and axes
         """
         fig = plt.figure(figsize=self.figsize)
