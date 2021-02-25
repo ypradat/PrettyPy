@@ -191,29 +191,6 @@ class _DonutPlot(object):
         list_sub_grp_colors_l  = []
         subgroups_represented = self._remove_dup_keep_order(df[col_subgroups].tolist())
 
-        if len(self.config.hilolist) > 0:
-            assert len(self.config.hilolist) == len(subgroups_represented), "The list provided "
-            "to specify the intensity degree must include all subgroups. Subgroups "
-            "are: '{}'.format(subgroups_represented)"
-            subgroups_represented = self.config.hilolist
-        else:
-            # Provide feedback on what is being used as high to low intensity list
-            # so user can adjust; using `if __name__ == "__main__"` to customize
-            # note depending if script called from command line.
-            sys.stderr.write("Note: No list to specify high to low intensity coloring "
-                "provided, and so using '{}',\nwhere leftmost identifer corresponds "
-                "to most intense and rightmost is least.\n".format(
-                ",".join(str(i) for i in subgroups_represented))) # because subgroups
-            # could be integers as in example from
-            # https://python-graph-gallery.com/163-donut-plot-with-subgroups/, best
-            # to have conversion to string,
-            if __name__ == "__main__":
-                sys.stderr.write("Look into adding use of the `--hilolist` option "
-                    "to specify the order.\n\n")
-            else:
-                sys.stderr.write("Provide a Python list as `hilolist` when calling "
-                    "the function to specify the order.\n\n")
-
         # assign intensity degree settings for each subgroup so consistent among
         # other groups
         int_degree = np.linspace(0.6, 0.2, num=len(subgroups_represented))
