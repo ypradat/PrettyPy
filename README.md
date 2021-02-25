@@ -29,3 +29,10 @@ Elli Papaemmanuil, Ph.D., Moritz Gerstung, et al. "Genomic Classification and Pr
 NEJM, 2016.
 
 ![pcawg](img/test_double_heatmap.png)
+
+## 3. Donut plot
+
+Inspired by the plot [here](https://python-graph-gallery.com/donut-plot/) and the code mentioned in the comments by the
+author.
+
+![pcawg](img/test_donut_2.png)
