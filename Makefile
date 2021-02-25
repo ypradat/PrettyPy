@@ -28,6 +28,3 @@ test:
 	@echo "---------------Run prettypy tests-----------------"
 	$(PYTHON) -m pip install pytest pytest-cov
 	$(PYTEST) --cov-config=.coveragerc --cov-report xml:coverage.xml --cov . . 
-
-codecov:
-	bash <(curl -s https://codecov.io/bash) -t 3a640655-0921-4aaa-9f17-87870da992b9

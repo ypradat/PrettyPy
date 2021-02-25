@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-@modified: Feb 01 2020
-@created: Feb 01 2020
+@modified: Feb 01 2021
+@created: Feb 01 2021
 @author: Yoann Pradat
 
 Tests for prettypy.double_heatmap module.
@@ -32,7 +32,7 @@ def make_correlated_bernoulli(n=100, p=10, cov_mean=1, cov_sd=0.5, probs=0.05):
 
     return X
 
-def make_mock_df_values(n_obs=1000, n_var=52, n_groups=7, cov_mean=1, cov_sd=0.5, seed=123):
+def make_mock_df(n_obs=1000, n_var=52, n_groups=7, cov_mean=1, cov_sd=0.5, seed=123):
     np.random.seed(seed)
     X = np.zeros((n_obs, n_var))
 
@@ -54,7 +54,7 @@ def make_mock_df_values(n_obs=1000, n_var=52, n_groups=7, cov_mean=1, cov_sd=0.5
 
 
 def test_plot_double_heatmap():
-    df = make_mock_df_values(n_obs=1000, n_var=52, n_groups=7, cov_mean=0.4)
+    df = make_mock_df(n_obs=1000, n_var=52, n_groups=7, cov_mean=0.4)
     dfs = build_double_heatmap(df_values=df)
 
     brown_to_green_colors = ["#8c5322", "#c2842a", "#debf7c", "#f5ebc4", "#c8e7e5", "#7fcdc2", "#339a92",  "#11675f"]
