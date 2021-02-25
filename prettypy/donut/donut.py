@@ -30,8 +30,6 @@ import seaborn as sns
 @dataclass
 class DonutConfig:
     figsize: tuple = (8,8)
-    title: str = ""
-    title_fontsize: int = 24 # font size for title above plot
     plot_fontsize: int = 14  # font size for text in the plot
     show_group_sizes: bool = True # should group sizes be indicated in labels?
     show_subgroup_sizes: bool = True # should group sizes be indicated in labels?
@@ -129,7 +127,7 @@ class _DonutPlot(object):
         seen_add = seen.add
         return [x for x in seq if not (x in seen or seen_add(x))]
 
-    def plot_donut(self, df, col_groups, col_subgroups):
+    def plot_donut(self, df, col_groups, col_subgroups, ax=None):
         """
         Main function of the class
         """
@@ -170,7 +168,11 @@ class _DonutPlot(object):
         [next(colormp) for g in range(self.config.advance_color_increments)]
         colorm_per_grp=[next(colormp) for g in group_names]
 
-        fig, ax = plt.subplots(figsize=self.config.figsize)
+        if ax is None:
+            ax_was_none = True
+            fig, ax = plt.subplots(figsize=self.config.figsize)
+        else:
+            ax_was_none = False
 
         ### First Ring (outside)
         ### This will be the main groups
@@ -178,7 +180,7 @@ class _DonutPlot(object):
             labels = [self.config.sizes_fmt % (x,y) for x, y in zip(group_names, group_size)]
         else:
             labels = ["%s" % x for x in group_names]
-        mypie, _ = plt.pie(
+        mypie, _ = ax.pie(
             group_size, radius=self.config.outer_ring_radius, labels=labels, startangle=90,
             textprops={'fontsize': self.config.plot_fontsize, 'ha': 'center', 'va': 'center'},
             labeldistance=self.config.group_labeldistance, colors=[colormp(0.63) for colormp in colorm_per_grp] )
@@ -233,24 +235,21 @@ class _DonutPlot(object):
             labels = ["%s" % x for x in subgroup_names]
         sub_grp_colors = [i for sublt in list_sub_grp_colors_l for i in sublt]
 
-        mypie2, _ = plt.pie(
+        mypie2, _ = ax.pie(
             subgroup_size, radius=self.config.inner_ring_radius, labels=labels, startangle=90,
             textprops={'fontsize': self.config.plot_fontsize, 'ha': 'center', 'va': 'center'},
             labeldistance=self.config.subgroup_labeldistance, colors=sub_grp_colors)
         plt.setp(mypie2, width=self.config.inner_ring_width, edgecolor='white')
-        plt.margins(0,0)
 
-        # title
-        plt.suptitle(self.config.title, fontsize=self.config.title_fontsize, fontweight="bold")
-
-        return fig, ax
+        if ax_was_none:
+            return fig, ax
 
 
-def plot_donut(df, col_groups, col_subgroups, config: DonutConfig):
+def plot_donut(df, col_groups, col_subgroups, config: DonutConfig, ax=None):
     """
     Takes a dataframe along some information about columns in the dataframe and makes a donut plot.  The plot is a
     breakdown of the main groups to subgroups with the main groups in an outer ring of the dount plot and the subgroups
     on the inner ring. The style sought is available at https://python-graph-gallery.com/163-donut-plot-with-subgroups/.
     """
     plotter = _DonutPlot(config=config)
-    return plotter.plot_donut(df=df, col_groups=col_groups, col_subgroups=col_subgroups)
+    return plotter.plot_donut(df=df, col_groups=col_groups, col_subgroups=col_subgroups, ax=ax)

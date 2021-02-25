@@ -75,12 +75,16 @@ def make_mock_df_1():
 
 def test_plot_donut_1():
     df = make_mock_df_1()
-    config = DonutConfig(title_fontsize=18, title="Test", figsize=(8,8), sizes_fmt="%s (%d)", group_labeldistance=1.1)
+    config = DonutConfig(figsize=(8,8), sizes_fmt="%s (%d)", group_labeldistance=1.1,
+                         colors=["#59CD90","#3FA7D6","#FFC759"])
 
-    fig, axes = plot_donut(df=df,
-                           col_groups="group",
-                           col_subgroups="subgroup",
-                           config=config)
+    fig, ax = plot_donut(df=df,
+                         col_groups="group",
+                         col_subgroups="subgroup",
+                         config=config)
+
+    # title
+    ax.set_title("Test", fontsize=24, fontweight="medium", pad=25)
     plt.savefig("./img/test_donut_1.png", dpi=300)
     plt.close()
 
@@ -119,13 +123,19 @@ def make_mock_df_2():
 
 def test_plot_donut_2():
     df = make_mock_df_2()
-    config = DonutConfig(title_fontsize=18, plot_fontsize=12, title="EXAMPLE", figsize=(10,8),
-                         colors=["#30688D","#B1A091"], light_color_for_last_in_subgroup=False)
+    config = DonutConfig(plot_fontsize=12, colors=["#59CD90","#3FA7D6"],
+                         light_color_for_last_in_subgroup=False)
 
-    fig, axes = plot_donut(df=df,
-                           col_groups="group",
-                           col_subgroups="subgroup",
-                           config=config)
-    plt.subplots_adjust(left=0.15, right=0.85, top=0.9, bottom=0.05)
+    fig, ax = plt.subplots(1,1,figsize=(10,8))
+
+    plot_donut(df=df,
+               col_groups="group",
+               col_subgroups="subgroup",
+               config=config,
+               ax=ax)
+
+    # title
+    ax.set_title("Example", fontsize=24, fontweight="medium", pad=25)
+    plt.tight_layout()
     plt.savefig("./img/test_donut_2.png", dpi=300)
     plt.close()

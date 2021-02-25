@@ -14,7 +14,7 @@ kind of much slower than the `UpSetR` implementation.
 
 Here is an example of rendering on a simulated example.
 
-![pcawg](img/test_pyupset_all.png)
+![upset](img/test_pyupset_all.png)
 
 ## 2. Heatmap plots
 
@@ -35,4 +35,4 @@ NEJM, 2016.
 Inspired by the plot [here](https://python-graph-gallery.com/donut-plot/) and the code mentioned in the comments by the
 author.
 
-![pcawg](img/test_donut_2.png)
+![donut](img/test_donut_1.png)
