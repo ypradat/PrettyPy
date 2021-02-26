@@ -86,7 +86,6 @@ def test_plot_donut_1():
     # title
     ax.set_title("Test", fontsize=24, fontweight="medium", pad=25)
     plt.savefig("./img/test_donut_1.png", dpi=300)
-    plt.close()
 
 def make_mock_df_2():
     obs = [
@@ -138,4 +137,3 @@ def test_plot_donut_2():
     ax.set_title("Example", fontsize=24, fontweight="medium", pad=25)
     plt.tight_layout()
     plt.savefig("./img/test_donut_2.png", dpi=300)
-    plt.close()

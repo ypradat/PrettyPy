@@ -35,4 +35,8 @@ NEJM, 2016.
 Inspired by the plot [here](https://python-graph-gallery.com/donut-plot/) and the code mentioned in the comments by the
 author.
 
-![donut](img/test_donut_1.png)
+## 3. Venn plot
+
+Based on the functions provided by the [matplotlib-venn](https://pypi.org/project/matplotlib-venn/) Python library.
+
+![venn](img/test_venn.png)

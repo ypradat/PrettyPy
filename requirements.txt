@@ -2,13 +2,17 @@ attrs @ file:///tmp/build/80754af9/attrs_1604765588209/work
 certifi==2020.12.5
 coverage @ file:///opt/concourse/worker/volumes/live/46b194ef-1cab-45e6-7b69-8136fed82315/volume/coverage_1611690853806/work
 cycler==0.10.0
+et-xmlfile==1.0.1
 importlib-metadata @ file:///tmp/build/80754af9/importlib-metadata_1602276842396/work
 iniconfig @ file:///home/linux1/recipes/ci/iniconfig_1610983019677/work
+jdcal==1.4.1
 kiwisolver @ file:///opt/concourse/worker/volumes/live/6dee099b-3849-4b61-575b-0e9f54a3bd23/volume/kiwisolver_1607570822545/work
-matplotlib @ file:///opt/concourse/worker/volumes/live/6db3817d-447c-451b-528a-2d6904862fb7/volume/matplotlib-base_1607974634094/work
+matplotlib==3.3.4
+matplotlib-venn==0.11.6
 more-itertools @ file:///tmp/build/80754af9/more-itertools_1605111547926/work
 numpy @ file:///opt/concourse/worker/volumes/live/317d3633-3972-452c-494a-92900a1134d5/volume/numpy_and_numpy_base_1607448161283/work
 olefile==0.46
+openpyxl==3.0.6
 packaging @ file:///tmp/build/80754af9/packaging_1611952188834/work
 pandas==1.2.1
 patsy==0.5.1
