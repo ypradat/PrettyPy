@@ -41,4 +41,4 @@ author.
 
 Based on the functions provided by the [matplotlib-venn](https://pypi.org/project/matplotlib-venn/) Python library.
 
-![venn](img/test_venn.png)
+![venn](img/test_venn_1.png)

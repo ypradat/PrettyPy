@@ -32,10 +32,14 @@ class VennConfig:
     enhance_linewidth: float=0.5
     enhance_linestyle: str="dashed"
     offset_label: List = field(default_factory=lambda: [0.1, 0])
+    annotate_size: int=12
     arrow_r: float = 0.5 # arrow tip positioned at r * xy_label + (1-r) * xy_center
     arrow_color: str = "black"
     arrow_connection_arc: int = 3
     arrow_connection_rad: float = 0.25
+    arrow_position: str="text"
+    arrow_shrinkA: int=0
+    arrow_shrinkB: int=5
 
 class _VennPlot(object):
     """
@@ -105,25 +109,40 @@ class _VennPlot(object):
 
                 label_id = chr(ord('A')+j)
                 xy_label = v.get_label_by_id(label_id).get_position()
-                xy_center = v.get_circle_center(id=j)
-
-                xy = (self.config.arrow_r * xy_label[0] + (1-self.config.arrow_r) * xy_center[0],
-                      self.config.arrow_r * xy_label[1] + (1-self.config.arrow_r) * xy_center[1])
-
+                if self.config.arrow_position=="text":
+                    xy_center = v.get_circle_center(id=j)
+                    xy = (self.config.arrow_r * xy_label[0] + (1-self.config.arrow_r) * xy_center[0],
+                          self.config.arrow_r * xy_label[1] + (1-self.config.arrow_r) * xy_center[1])
+                elif self.config.arrow_position=="count":
+                    xy_count = v.get_label_by_id(sub_in).get_position()
+                    xy = (self.config.arrow_r * xy_label[0] + (1-self.config.arrow_r) * xy_count[0],
+                          self.config.arrow_r * xy_label[1] + (1-self.config.arrow_r) * xy_count[1])
+                else:
+                    raise ValueError("Unsupported value of arrow_position: %s. Choose 'text' or 'count'" %
+                                     self.config.arrow_position)
                 v.get_label_by_id(label_id).set_text("")
 
                 if j % 2 == 0:
                     xytext = xy_label - np.array(self.config.offset_label)
-                    connectionstyle = 'arc%d,rad=-%f' % (self.config.arrow_connection_arc,
-                                                         self.config.arrow_connection_rad)
+                    if self.config.arrow_connection_rad > 0:
+                        connectionstyle = 'arc%d,rad=-%f' % (self.config.arrow_connection_arc,
+                                                             self.config.arrow_connection_rad)
+                    else:
+                        connectionstyle = 'arc%d,rad=%f' %  (self.config.arrow_connection_arc,
+                                                             -self.config.arrow_connection_rad)
                 else:
                     xytext = xy_label + np.array(self.config.offset_label)
-                    connectionstyle = 'arc%d,rad=%f' % (self.config.arrow_connection_arc,
-                                                        self.config.arrow_connection_rad)
+                    if self.config.arrow_connection_rad > 0:
+                        connectionstyle = 'arc%d,rad=%f' % (self.config.arrow_connection_arc,
+                                                            self.config.arrow_connection_rad)
+                    else:
+                        connectionstyle = 'arc%d,rad=-%f' %  (self.config.arrow_connection_arc,
+                                                              -self.config.arrow_connection_rad)
 
-                ax.annotate(set_labels[j], xy=xy, xytext=xytext, ha='center',
+                ax.annotate(set_labels[j], xy=xy, xytext=xytext, ha='center', size=self.config.annotate_size,
                             bbox=dict(boxstyle='round,pad=0.5', fc='gray', alpha=0.1),
-                            arrowprops=dict(arrowstyle='->', shrinkA=0, shrinkB=5,
+                            arrowprops=dict(arrowstyle='->', shrinkA=self.config.arrow_shrinkA,
+                                            shrinkB=self.config.arrow_shrinkB,
                                             connectionstyle=connectionstyle,
                                             color=self.config.arrow_color))
 
@@ -143,7 +162,7 @@ class _VennPlot(object):
         v = venn_func(subsets=subsets, set_labels=set_labels, set_colors=self.config.colors,
                       alpha=self.config.alpha, normalize_to=1, ax=ax)
         c = venn_circles_func(subsets=subsets, linestyle=self.config.enhance_linestyle, normalize_to=1,
-                              linewidth=self.config.enhance_linewidth)
+                              linewidth=self.config.enhance_linewidth, ax=ax)
         self._make_venn_labels(v, subsets, set_labels, ax)
 
         if ax_was_none:
