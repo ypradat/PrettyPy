@@ -37,6 +37,7 @@ class DonutConfig:
     prefix_subgroup_names: bool = False # if True, subgroup names are prefixed by the group name
     group_labeldistance: float = 1.2
     subgroup_labeldistance: float = 0.8
+    sort_groupby: bool = True
 
     colors: List = field(default_factory=lambda: ["Blues","Reds", "Greens","Oranges", "Purples"])
 
@@ -136,7 +137,7 @@ class _DonutPlot(object):
         tc = df[col_subgroups].value_counts()
         total_state_names = tc.index.tolist()
         total_state_size = tc.tolist()
-        grouped = df.groupby(col_groups)
+        grouped = df.groupby(col_groups, sort=self.config.sort_groupby)
 
         # use `value_counts()` on each group to get the count and name of each state
         list_o_subgroup_names_l = []
