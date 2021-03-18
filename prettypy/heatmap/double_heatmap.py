@@ -256,6 +256,8 @@ def default_field(obj):
 class DoubleHeatmapConfig:
     figure: Dict[str, Union[str,tuple]] = default_field({
         "figsize": (8,8),
+        "dpi": 300,
+        "n_grid": 10,
     })
     heatmap: Dict[str, Union[int, str, bool, float]] = default_field({
         "orientation"          : "antidiagonal",
@@ -289,6 +291,7 @@ class DoubleHeatmapConfig:
         'cbar_xy'             :  (0, 0.5),
         'cbar_title'          : "Counts",
         'cbar_title_fontsize' : 12,
+        'cbar_title_pad'      : 6,
         'cbar_ticks_rotation' : 0,
         'cbar_ticks_length'   : 5,
         'cbar_ticks_labelsize': 8,
@@ -303,6 +306,7 @@ class DoubleHeatmapConfig:
         'cbar_reverse'        : False,
         'cbar_xy'             : (0.5, 0.1),
         'cbar_title'          : "Ratios",
+        'cbar_title_pad'      : 6,
         'cbar_title_fontsize' : 12,
         'cbar_ticks_rotation' : 0,
         'cbar_ticks_length'   : 5,
@@ -374,7 +378,8 @@ class _DoubleHeatmapPlot(object):
             boundaries = [min_val] + below_middle + [middle] + above_middle + [min_val]
         else:
             inbetween = pd.qcut(vals, q=n-1).categories.mid.values
-            boundaries = [min(val)] + inbetween + [max(val)]
+            inbetween = np.round(inbetween, decimals=decimals)
+            boundaries = [min(vals)] + inbetween + [max(vals)]
 
         boundaries = sort(list(set(boundaries)))
         return boundaries
@@ -412,8 +417,8 @@ class _DoubleHeatmapPlot(object):
                     self.df_ratio.iloc[i, j] = np.nan
 
     def _build_figure_layout(self):
-        fig = plt.figure(figsize=self.config.figure["figsize"])
-        gs = fig.add_gridspec(10, 10)
+        fig = plt.figure(figsize=self.config.figure["figsize"], dpi=self.config.figure["dpi"])
+        gs = fig.add_gridspec(self.config.figure["n_grid"], self.config.figure["n_grid"])
         gridspecs = {}
         gridspecs["count_cbar"] = gs[0, :-1]
         gridspecs["ratio_cbar"] = gs[1:, -1]
@@ -483,7 +488,8 @@ class _DoubleHeatmapPlot(object):
 
         self._plot_colorbar(cax=axes["count_cbar"], cmap=config["cmap"], labels=config["boundaries"],
                             reverse=config["cbar_reverse"], orientation="horizontal",
-                            title=config["cbar_title"], title_fontsize=config["cbar_ticks_labelsize"],
+                            title=config["cbar_title"], title_fontsize=config["cbar_title_fontsize"],
+                            title_pad=config["cbar_title_pad"],
                             ticks_rotation=config["cbar_ticks_rotation"], ticks_length=config["cbar_ticks_length"],
                             ticks_labelsize=config["cbar_ticks_labelsize"], ticks_pad=config["cbar_ticks_pad"])
 
@@ -498,6 +504,7 @@ class _DoubleHeatmapPlot(object):
         self._plot_colorbar(cax=axes["ratio_cbar"], cmap=config["cmap"], labels=config["boundaries"],
                             reverse=config["cbar_reverse"], orientation="vertical",
                             title=config["cbar_title"], title_fontsize=config["cbar_ticks_labelsize"],
+                            title_pad=config["cbar_title_pad"],
                             ticks_rotation=config["cbar_ticks_rotation"], ticks_length=config["cbar_ticks_length"],
                             ticks_labelsize=config["cbar_ticks_labelsize"], ticks_pad=config["cbar_ticks_pad"])
 
@@ -511,7 +518,7 @@ class _DoubleHeatmapPlot(object):
         return fig, axes
 
 
-    def _plot_colorbar(self, cax, cmap, labels, reverse, orientation, title, title_fontsize,
+    def _plot_colorbar(self, cax, cmap, labels, reverse, orientation, title, title_fontsize, title_pad,
                       ticks_rotation, ticks_length, ticks_labelsize, ticks_pad):
 
         if orientation not in ["vertical", "horizontal"]:
@@ -586,7 +593,7 @@ class _DoubleHeatmapPlot(object):
             cax.set_xticks([])
 
             # title
-            cax.set_title(title, fontsize=title_fontsize)
+            cax.set_title(title, fontsize=title_fontsize, pad=title_pad)
 
     def _plot_significant(self, ax):
         pvals = []

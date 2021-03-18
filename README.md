@@ -18,10 +18,18 @@ Here is an example of rendering on a simulated example.
 
 ## 2. Heatmap plots
 
-### 2.1 Double heatmap
+The `heatmap` subpackage of the `prettypy` package defines functions for plotting different types of heatmaps.
 
-The `double_heatmap` subpackage of the `prettypy` package defines functions for plotting heatmaps of two half-filled
-matrices. The function additionally allows to add scattered markers on the half-filled matrices to highlight some cells.
+### 2.1 heatmap
+
+The `heatmap` module allows to draw simple and higly customizable heatmaps.
+
+![simple](img/test_heatmap.png)
+
+### 2.2 Double heatmap
+
+The `double_heatmap` module allows to plot heatmaps of two half-filled matrices. The function additionally allows to 
+add scattered markers on the half-filled matrices to highlight some cells. It is highly customizable as well.
 
 The `double_heatmap` plot in the demo was inspired by the figure S3.a of [the
 supplementary](https://www.nejm.org/doi/suppl/10.1056/NEJMoa1516192/suppl_file/nejmoa1516192_appendix.pdf) of the paper
