@@ -12,7 +12,7 @@ R package `UpSetR` available at [https://github.com/hms-dbmi/UpSetR](https://git
 implementation was copied from [https://github.com/ImSoErgodic/py-upset](https://github.com/ImSoErgodic/py-upset) and is
 kind of much slower than the `UpSetR` implementation.
 
-Here is an example of rendering on a simulated example.
+Here is an example of a rendering on a simulated example.
 
 ![upset](img/test_pyupset_all.png)
 
