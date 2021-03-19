@@ -658,7 +658,7 @@ class _DoubleHeatmapPlot(object):
                 xticklabels = self.config.heatmap["xticklabels"],
                 yticklabels = self.config.heatmap["yticklabels"],
                 ax          = ax,
-                norm        = cm.colors.BoundaryNorm(boundaries=config["boundaries"], ncolors = 256),
+                norm        = cm.colors.BoundaryNorm(boundaries=config["boundaries"], ncolors=256, extend="both"),
                 cbar_ax     = None,
                 cbar        = False,
             )

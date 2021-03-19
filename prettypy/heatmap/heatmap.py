@@ -85,7 +85,7 @@ class _HeatmapPlot(object):
         if self.config.cbar["aspect"] is None:
             self.config.cbar["aspect"] = len(self.config.cbar["boundaries"])-1
 
-        # Color for na in ratios 
+        # Color for na
         cmap = copy.copy(self.config.cbar["cmap"])
         cmap.set_bad("#F2F2F2")
         self.config.cbar["cmap"] = cmap
@@ -231,7 +231,7 @@ class _HeatmapPlot(object):
             xticklabels = self.config.heatmap["xticklabels"],
             yticklabels = self.config.heatmap["yticklabels"],
             ax          = ax,
-            norm        = cm.colors.BoundaryNorm(boundaries=self.config.cbar["boundaries"], ncolors = 256),
+            norm        = cm.colors.BoundaryNorm(boundaries=self.config.cbar["boundaries"], ncolors=256, extend="both"),
             cbar_ax     = None,
             cbar        = False,
         )
