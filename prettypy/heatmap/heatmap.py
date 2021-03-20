@@ -123,7 +123,7 @@ class _HeatmapPlot(object):
             cax = fig.add_subplot(ss_cbar)
             cax.set_aspect(1/aspect, anchor=(1,y), adjustable="box")
         else:
-            if y > fraction:
+            if y > (1-fraction):
                 raise ValueError("Set the y anchor position to value less than fraction")
             else:
                 if y==0:
