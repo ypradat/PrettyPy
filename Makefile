@@ -17,6 +17,10 @@ develop:
 	@echo "---------------Install prettypy in develop mode-----------------"
 	$(PYTHON) -m pip install -e .
 
+sdist:
+	@echo "---------------Build distribution for prettypy-----------------"
+	$(PYTHON) setup.py sdist
+
 install:
 	@echo "---------------Install prettypy-----------------"
 	$(PYTHON) setup.py install
