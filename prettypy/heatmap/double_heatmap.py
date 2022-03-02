@@ -17,7 +17,7 @@ from   dataclasses import dataclass, field
 import numpy        as    np
 import pandas       as    pd
 import os
-from   typing      import Dict, List, Tuple, Union
+from   typing      import Dict, List, Tuple, Union, Callable
 from   tqdm        import tqdm
 import sys
 
@@ -104,7 +104,7 @@ class _DoubleHeatmapBuild(object):
         self.pair_test = pair_test
 
     def _pair_count(self, A, B):
-        if isinstance(self.pair_ratio, str) and self.pair_count == "cooccurrence":
+        if isinstance(self.pair_count, str) and self.pair_count == "cooccurrence":
             assert set(A).issubset(set([0,1]))
             assert set(B).issubset(set([0,1]))
             return sum((A==1) & (B==1))
@@ -159,14 +159,16 @@ class _DoubleHeatmapBuild(object):
             for i in tqdm(range(n_vars)):
                 l_half = [np.nan for _ in range(n_vars)]
                 for j in range(0, i + 1):
-                    l_half[j] = pair(df[vars[i]], df[vars[j]])
+                    df_nna = df.dropna(subset=list(set([vars[i], vars[j]])))
+                    l_half[j] = pair(df_nna[vars[i]], df_nna[vars[j]])
                 m_half.append(l_half)
         else:
             m_half.append([np.nan for _ in range(n_vars)])
             for i in tqdm(range(1, n_vars)):
                 l_half = [np.nan for _ in range(n_vars)]
                 for j in range(0, i):
-                    l_half[j] = pair(df[vars[i]], df[vars[j]])
+                    df_nna = df.dropna(subset=list(set([vars[i], vars[j]])))
+                    l_half[j] = pair(df_nna[vars[i]], df_nna[vars[j]])
                 m_half.append(l_half)
 
         df_half = pd.DataFrame(m_half, vars)
@@ -297,10 +299,11 @@ class DoubleHeatmapConfig:
         'cbar_ticks_labelsize': 8,
         'cbar_ticks_pad'      : 4,
     })
-    ratio: Dict[str, Union[int, float, str]] = default_field({
+    ratio: Dict[str, Union[int, float, str, bool]] = default_field({
         'boundaries'          : [0.001, 0.01, 0.1, 1, 10, 100, 1000],
         'auto_boundaries'     : {"n": 7, "decimals": 0, "middle": None, "regular": True},
         'cmap'                : sns.diverging_palette(50, 200, s=90, l=50, sep=1, as_cmap=True),
+        'hide_non_significant': True,
         'cbar_fraction'       : 0.25,
         'cbar_aspect'         : None,
         'cbar_reverse'        : False,
@@ -503,7 +506,7 @@ class _DoubleHeatmapPlot(object):
 
         self._plot_colorbar(cax=axes["ratio_cbar"], cmap=config["cmap"], labels=config["boundaries"],
                             reverse=config["cbar_reverse"], orientation="vertical",
-                            title=config["cbar_title"], title_fontsize=config["cbar_ticks_labelsize"],
+                            title=config["cbar_title"], title_fontsize=config["cbar_title_fontsize"],
                             title_pad=config["cbar_title_pad"],
                             ticks_rotation=config["cbar_ticks_rotation"], ticks_length=config["cbar_ticks_length"],
                             ticks_labelsize=config["cbar_ticks_labelsize"], ticks_pad=config["cbar_ticks_pad"])
@@ -511,7 +514,8 @@ class _DoubleHeatmapPlot(object):
         # heatmap
         axes["heatmap"] = fig.add_subplot(gridspecs["heatmap"])
 
-        self._hide_non_significant()
+        if self.config.ratio["hide_non_significant"]:
+            self._hide_non_significant()
         self._plot_heatmap(ax=axes["heatmap"])
         self._plot_significant(ax=axes["heatmap"])
 
